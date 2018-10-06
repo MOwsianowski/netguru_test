@@ -17,6 +17,7 @@ Rails.logger.info "Creating users..."
   )
 end
 
+
 Rails.logger.info "Creating genres..."
 
 %w(Action Comedy Sci-Fi War Crime
@@ -82,3 +83,31 @@ if Movie.count < 100
     )
   end
 end
+
+
+
+text = "Great movie"
+user_id = 0
+
+rand(16..19).times do |i|
+  user_id += 1
+  old_movie = []
+  old_movie.clear
+  movie_id = rand(1..100)
+
+  x = rand(1..50)
+  x.times do |y|
+    old_movie.push(movie_id)
+    movie_id = rand(1..100)
+    if old_movie.include? movie_id
+
+    else
+      Comment.create!(
+        user_id: user_id,
+        movie_id: movie_id,
+        text: text
+      )
+    end
+  end
+end
+

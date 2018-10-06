@@ -1,0 +1,11 @@
+%table.table.table-striped.table-bordered 
+	%tbody
+		%tr
+			%td Authors:
+			%td Comments:
+			- @top10values.each_with_index do |value, index|
+				%tr
+					%td= User.find(@top10keys[index]).name
+					%td= value
+
+

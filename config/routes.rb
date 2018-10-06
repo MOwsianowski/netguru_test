@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get "movies"
     end
   end
-  resources :comments, only: [:create, :delete, :destroy]
+  resources :comments, only: [:create, :delete, :destroy, :index]
 # get 'comments/:id', to: 'comments#destroy'
   resources :movies, only: [:index, :show] do
     member do
