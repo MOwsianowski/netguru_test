@@ -7,11 +7,9 @@ Rails.application.routes.draw do
       get "movies"
     end
   end
-  resources :comments, only: [:create]
-
+  resources :comments, only: [:create, :delete, :destroy]
+# get 'comments/:id', to: 'comments#destroy'
   resources :movies, only: [:index, :show] do
-  get 'movies/:id', to: 'movies#show', as: 'movie_show'
-  get 'movies', to: 'movies#index'
     member do
       get :send_info
     end

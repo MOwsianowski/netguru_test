@@ -1,4 +1,5 @@
 - @comments.reverse.each do |comment|
 	%h1= comment.text
-	%h1= comment.user_id
-	
+	%h1= User.find(comment.user_id).name
+	- if current_user == comment.user
+		%h1= link_to "Delete", [comment], method: :delete
