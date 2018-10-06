@@ -1,0 +1,12 @@
+%table.table.table-striped.table-bordered 
+	%tbody
+		%tr
+			%td Authors:
+			%td Comments:
+			- @comments.reverse.each do |comment|
+				%tr
+					%td
+						= User.find(comment.user_id).name
+						- if current_user == comment.user
+							= link_to "Delete my comment", [comment], method: :delete
+					%td= comment.text
