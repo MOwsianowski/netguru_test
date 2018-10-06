@@ -11,26 +11,28 @@ class TitleBracketsValidator  < ActiveModel::Validator
   	chars_title.delete_if {|x| brackets.exclude? x}
 
   	if /\(\s*\)/.match(title) or /\{\s*\}/.match(title) or /\[\s*\]/.match(title)
-  		record.errors.add(:base, "This record is invalid")
+  		record.errors.add(:base, "Empty brackets/parentheses")
   	end
 
 		i = 0
-	  	8.times {
-		  	open_id = open_brackets.index(chars_title[i])
+	  chars_title.length.times {
+	  	open_id = open_brackets.index(chars_title[i])
 
-		  	if open_id == nil 
-
-		  	elsif chars_title[i + 1] == brackets[open_id*2 + 1]
-		  		 chars_title.delete_at(i)
-		  		 chars_title.delete_at(i)
-		  		 i = 0
-	   		else
-	   			i += 1
-			end
-	   }
+	  	if open_id == nil 
+          if i == 0 and chars_title.present?
+            record.errors.add(:base, "Closing symbol on left side")
+          end
+	  	elsif chars_title[i + 1] == brackets[open_id*2 + 1]
+	  		 chars_title.delete_at(i)
+	  		 chars_title.delete_at(i)
+	  		 i = 0
+   		else
+   			i += 1
+		  end
+	  }
 
     if chars_title.length > 0 
-    		record.errors.add(:base, "This record is invalid")
+    		record.errors.add(:base, "Missing closing symbol")
     end
 	end
 end
