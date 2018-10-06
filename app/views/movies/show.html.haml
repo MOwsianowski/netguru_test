@@ -1,5 +1,19 @@
 %h1= @movie.title
 .jumbotron
   = @movie.description
+
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+
+
+= form_for :comment, :url => {:controller => 'comments', :action => 'create'} do |f|
+  = f.label "Write a comment"
+  = f.text_field :text, {class: "form-control"}
+  = f.submit "Add comment", class: "btn btn-default"
+  = f.hidden_field :id, :value => params[:id]
+
+.row
+  .col-md-8.col-md-offset-2.col-lg-8.col-lg-offset-2
+    %h1.text-center Comments
+    = render 'comments', movies: @comments
+
