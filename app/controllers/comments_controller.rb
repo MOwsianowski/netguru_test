@@ -15,9 +15,9 @@ before_action :restriction, only: [:new, :create, :show]
         	end
         end
 
-        top10keys = ranking.sort_by { |k,v| -v }.first(10).to_h.keys
-        top10values = ranking.sort_by { |k,v| -v }.first(10).to_h.values
- 
+        @top10keys = ranking.sort_by { |k,v| -v }.first(10).to_h.keys
+        @top10values = ranking.sort_by { |k,v| -v }.first(10).to_h.values
+
 	end
 
 	def new
