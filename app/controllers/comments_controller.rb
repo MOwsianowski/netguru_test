@@ -1,11 +1,23 @@
 class CommentsController < ApplicationController
 
-before_action :restriction, only: [:index, :new, :create, :show]
+before_action :restriction, only: [:new, :create, :show]
 
     def index
 
-	    $list = @user.comments
+	    @list = Comment.where("created_at >= ?", 1.week.ago)
+	    ranking = {}
+        @list.each do |comment|
+        	user = comment.user_id
+        	if ranking.key?(user)
+        		ranking[user] += 1
+        	else
+        		ranking[user] = 1
+        	end
+        end
 
+        top10keys = ranking.sort_by { |k,v| -v }.first(10).to_h.keys
+        top10values = ranking.sort_by { |k,v| -v }.first(10).to_h.values
+ 
 	end
 
 	def new
