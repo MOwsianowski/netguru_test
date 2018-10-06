@@ -23,8 +23,9 @@ before_action :restriction, only: [:index, :new, :create, :show]
 		
 		if @comment.save
 			redirect_to movie_path(@movie)
+			flash[:notice] = "Your comment was added"
 		else
-			flash[:notice] = "You already commented this movie. Delete your previous comment to add new one"
+			flash[:notice] = "Your comment is empty or you already commented this movie. Delete your previous comment to add new one"
 			redirect_to movie_path(@movie)
 		end	
 	end  
